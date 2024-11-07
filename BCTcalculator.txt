@@ -1,0 +1,59 @@
+// SPDX-License-Identifier: MIT
+pragma solidity ^0.8.0;
+
+contract Calculator {
+    uint public a;
+    uint public b;
+
+    uint public sumResult;
+    uint public subResult;
+    uint public mulResult;
+    uint public divResult;
+
+    // Constructor to initialize a and b values, and perform the calculations
+    constructor(uint _a, uint _b) {
+        a = _a;
+        b = _b;
+        sumResult = sum(a, b);
+        subResult = subtract(a, b);
+        mulResult = multiply(a, b);
+        divResult = divide(a, b);
+    }
+    
+    // Setter functions to update values of a and b and recalculate
+    function setA(uint _a) public {
+        a = _a;
+        updateResults();
+    }
+
+    function setB(uint _b) public {
+        b = _b;
+        updateResults();
+    }
+
+    // Internal function to update results based on new a and b
+    function updateResults() internal {
+        sumResult = sum(a, b);
+        subResult = subtract(a, b);
+        mulResult = multiply(a, b);
+        divResult = divide(a, b);
+    }
+
+    // Pure functions for arithmetic operations
+    function sum(uint _a, uint _b) public pure returns (uint) {
+        return _a + _b;
+    }
+    
+    function subtract(uint _a, uint _b) public pure returns (uint) {
+        return _a - _b;
+    }
+
+    function multiply(uint _a, uint _b) public pure returns (uint) {
+        return _a * _b;
+    }
+    
+    function divide(uint _a, uint _b) public pure returns (uint) {
+        require(_b != 0, "Division by zero");
+        return _a / _b;
+    }
+}
